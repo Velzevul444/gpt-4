@@ -24,22 +24,14 @@ body {
 	border-bottom: 1px solid #ddd;
 }
 
-.message {
-	margin: 8px 0;
-	padding: 8px 12px;
-	border-radius: 10px;
-	max-width: 75%;
-}
+
+
 
 .user {
 	background: #d1e7dd;
 	align-self: flex-end;
 }
 
-.bot {
-	background: #4d6250;
-	align-self: flex-start;
-}
 
 .input-container {
 	display: flex;
@@ -61,4 +53,32 @@ body {
 }
 #sendBtn:hover {
 	background: #51b300;
+}
+.message {
+	margin: 8px 0;
+	padding: 8px 12px;
+	border-radius: 10px;
+	max-width: 75%;
+	opacity: 0;
+	transform: translateY(20px);
+	animation: messageAppear 0.3s ease forwards;
+}
+
+@keyframes messageAppear {
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.user {
+	background: #d1e7dd;
+	align-self: flex-end;
+	margin-left: auto;
+}
+
+.bot {
+	background: #4d6250;
+	align-self: flex-start;
+	margin-right: auto;
 }

@@ -43,3 +43,9 @@ userInput.addEventListener("keypress", (e) => {
 		sendBtn.click();
 	}
 });
+const earthContainer = document.createElement("div");
+earthContainer.className = "earth-container";
+const earth = document.createElement("div");
+earth.className = "earth";
+earthContainer.appendChild(earth);
+document.body.appendChild(earthContainer);

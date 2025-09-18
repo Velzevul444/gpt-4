@@ -1,20 +1,53 @@
+/* Добавляем звёздный фон и вращающуюся Землю */
 body {
 	font-family: Arial, sans-serif;
-	background: #f3f3f3;
+	background: #000 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxyYWRpYWxHcmFkaWVudCBpZD0iYSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNTAlIiBmeD0iNTAlIiBmeT0iNTAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMDAwIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDAxMTI2Ii8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNhKSIvPjxjaXJjbGUgY3g9IjgwJSIgY3k9IjIwJSIgcj0iMiIgZmlsbD0id2hpdGUiIG9wYWNpdHk9Ii44Ii8+PGNpcmNsZSBjeD0iOTAlIiBjeT0iMzAlIiByPSIxIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iLjciLz48Y2lyY2xlIGN4PSI3MCUiIGN5PSIxNSUiIHI9IjEuNSIgZmlsbD0id2hpdGUiIG9wYWNpdHk9Ii45Ii8+PGNpcmNsZSBjeD0iNjAlIiBjeT0iNDAlIiByPSIxIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iLjYiLz48Y2lyY2xlIGN4PSI4NSUiIGN5PSI2MCUiIHI9IjEuMiIgZmlsbD0id2hpdGUiIG9wYWNpdHk9Ii43Ii8+PGNpcmNsZSBjeD0iNzAlIiBjeT0iNzUlIiByPSIxLjgiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIuOCIvPjxjaXJjbGUgY3g9IjQwJSIgY3k9IjI1JSIgcj0iMSIgZmlsbD0id2hpdGUiIG9wYWNpdHk9Ii43Ii8+PGNpcmNsZSBjeD0iMzAlIiBjeT0iNTAlIiByPSIxLjIiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIuNiIvPjxjaXJjbGUgY3g9IjIwJSIgY3k9IjE1JSIgcj0iMS41IiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iLjgiLz48Y2lyY2xlIGN4PSIxNSUiIGN5PSI3MCUiIHI9IjEiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIuNyIvPjxjaXJjbGUgY3g9IjMwJSIgY3k9IjgwJSIgcj0iMS44IiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iLjkiLz48Y2lyY2xlIGN4PSI1NSUiIGN5PSI5MCUiIHI9IjEuMyIgZmlsbD0id2hpdGUiIG9wYWNpdHk9Ii42Ii8+PC9zdmc+');
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
+	overflow: hidden;
+	position: relative;
 }
 
+/* Контейнер для вращающейся Земли */
+.earth-container {
+	position: fixed;
+	top: 50%;
+	right: -150px;
+	transform: translateY(-50%);
+	width: 400px;
+	height: 400px;
+	z-index: -1;
+}
+
+/* Сама Земля с анимацией вращения */
+.earth {
+	width: 100%;
+	height: 100%;
+	background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDAgNDAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImEiIGN4PSIyMDAiIGN5PSIyMDAiIHI9IjE4MCIgZng9IjIwMCIgZnk9IjIwMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwN2ZiZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwM2Y2ZiIvPjwvcmFkaWFsR3JhZGllbnQ+PGZpbHRlciBpZD0iYiIgeD0iLTEwJSIgeT0iLTEwJSIgd2lkdGg9IjEyMCUiIGhlaWdodD0iMTIwJSI+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iNCIvPjwvZmlsdGVyPjwvZGVmcz48Y2lyY2xlIGN4PSIyMDAiIGN5PSIyMDAiIHI9IjE4MCIgZmlsbD0idXJsKCNhKSIgZmlsdGVyPSJ1cmwoI2IpIi8+PGNpcmNsZSBjeD0iMjAwIiBjeT0iMjAwIiByPSIxODAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIwLjMiLz48cGF0aCBkPSJNMTIwIDExMEMxNTAgODAgMjUwIDgwIDI4MCAxMTAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIiBvcGFjaXR5PSIwLjYiLz48cGF0aCBkPSJNMTAwIDE1MEMxMzAgMTIwIDI3MCAxMjAgMzAwIDE1MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjAuNyIvPjxwYXRoIGQ9Ik05MCAyMDBDMTIwIDE3MCAyODAgMTcwIDMxMCAyMDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIiBvcGFjaXR5PSIwLjgiLz48cGF0aCBkPSJNMTIwIDI1MEMxNTAgMjIwIDI1MCAyMjAgMjgwIDI1MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjAuNiIvPjxwYXRoIGQ9Ik0xNTAgMjkwQzE4MCAyNjAgMjIwIDI2MCAyNTAgMjkwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC41Ii8+PC9zdmc+') center/cover no-repeat;
+	border-radius: 50%;
+	box-shadow: 0 0 40px rgba(0, 150, 255, 0.6);
+	animation: rotate-earth 60s linear infinite;
+}
+
+/* Анимация вращения Земли */
+@keyframes rotate-earth {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+
+/* Остальные стили из предыдущего кода с небольшими улучшениями */
 .chat-container {
 	width: 400px;
-	background: #fff;
+	background: rgba(255, 255, 255, 0.95);
 	border-radius: 12px;
-	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
+	position: relative;
+	z-index: 1;
 }
 
 .chat-window {
@@ -22,49 +55,23 @@ body {
 	padding: 10px;
 	overflow-y: auto;
 	border-bottom: 1px solid #ddd;
+	max-height: 400px;
+	scroll-behavior: smooth;
 }
 
-
-
-
-.user {
-	background: #d1e7dd;
-	align-self: flex-end;
-}
-
-
-.input-container {
-	display: flex;
-}
-
-#userInput {
-	flex: 1;
-	border: none;
-	padding: 10px;
-	font-size: 14px;
-}
-
-#sendBtn {
-	background: #1bff00;
-	color: #fff;
-	border: none;
-	padding: 10px 16px;
-	cursor: pointer;
-}
-#sendBtn:hover {
-	background: #51b300;
-}
 .message {
 	margin: 8px 0;
 	padding: 8px 12px;
 	border-radius: 10px;
 	max-width: 75%;
-	opacity: 0;
-	transform: translateY(20px);
-	animation: messageAppear 0.3s ease forwards;
+	animation: messageAppear 0.3s ease-out;
 }
 
 @keyframes messageAppear {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
 	to {
 		opacity: 1;
 		transform: translateY(0);
@@ -79,6 +86,31 @@ body {
 
 .bot {
 	background: #4d6250;
+	color: white;
 	align-self: flex-start;
-	margin-right: auto;
+}
+
+.input-container {
+	display: flex;
+}
+
+#userInput {
+	flex: 1;
+	border: none;
+	padding: 10px;
+	font-size: 14px;
+	background: #f9f9f9;
+}
+
+#sendBtn {
+	background: #1bff00;
+	color: #fff;
+	border: none;
+	padding: 10px 16px;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+#sendBtn:hover {
+	background: #51b300;
 }
